@@ -1,4 +1,4 @@
-
+import CourseActionButton from "./CourseActionButton";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -232,9 +232,10 @@ export default async function CourseDetailsPage({ params }) {
             </div>
           </div>
 
-          <Link href={`/courses/${course.id}/learn`} className="detail-cta">
-            Start Learning <span>→</span>
-          </Link>
+          <CourseActionButton
+            courseId={course.id}
+            className="detail-cta"
+          />
         </div>
 
         <div className="detail-art" style={{ backgroundColor: course.color }}>
@@ -323,9 +324,10 @@ export default async function CourseDetailsPage({ params }) {
               Learn at your own pace and track your progress as you go.
             </div>
 
-            <Link href={`/courses/${course.id}/learn`} className="sidebar-cta">
-              Start This Course →
-            </Link>
+            <CourseActionButton
+              courseId={course.id}
+              className="sidebar-cta"
+            />
           </div>
         </aside>
       </section>

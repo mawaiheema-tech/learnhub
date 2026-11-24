@@ -2587,3 +2587,246 @@ button, input, select {
 .certificate-status-card .print-certificate:hover {
   background: #23b9c8;
 }
+
+/* Course Progress Dashboard */
+
+.dashboard-progress {
+  margin-top: 45px;
+}
+
+.dashboard-progress h2 {
+  color: #101e35;
+  font-size: 25px;
+  margin-bottom: 8px;
+}
+
+.progress-description {
+  color: #718096;
+  margin-bottom: 25px;
+}
+
+.progress-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.progress-card {
+  padding: 25px 18px;
+  background: #ffffff;
+  border: 1px solid #dce5ef;
+  border-radius: 16px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.progress-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(16, 30, 53, 0.08);
+}
+
+.progress-ring {
+  width: 115px;
+  height: 115px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+}
+
+.progress-ring-inner {
+  width: 91px;
+  height: 91px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-ring-inner strong {
+  color: #101e35;
+  font-size: 23px;
+}
+
+.progress-card h3 {
+  color: #101e35;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.progress-card p {
+  color: #718096;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.progress-card a {
+  display: inline-block;
+  color: #159eae;
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+/* Learning Streak Calendar */
+
+.learning-streak {
+  margin-top: 40px;
+  padding: 30px;
+  background: #ffffff;
+  border: 1px solid #dce5ef;
+  border-radius: 18px;
+}
+
+.learning-streak h2 {
+  color: #101e35;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.learning-streak > p {
+  color: #718096;
+  margin-bottom: 25px;
+}
+
+.streak-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.streak-stats div {
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+
+.streak-stats strong {
+  display: block;
+  color: #101e35;
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+.streak-stats span {
+  color: #718096;
+  font-size: 13px;
+}
+
+.streak-calendar {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 8px;
+}
+
+.streak-day {
+  aspect-ratio: 1;
+  min-width: 0;
+  border-radius: 4px;
+  background: #eaf0f6;
+}
+
+.streak-day.active {
+  background: #23b9c8;
+}
+
+@media (max-width: 600px) {
+  .streak-calendar {
+    gap: 5px;
+  }
+
+  .learning-streak {
+    padding: 20px;
+  }
+}
+
+/* Continue Learning */
+.continue-learning {
+  margin: 35px 0;
+}
+
+.continue-learning h2 {
+  font-size: 24px;
+  color: #101e35;
+  margin-bottom: 6px;
+}
+
+.continue-learning > p {
+  color: #718096;
+  margin-bottom: 20px;
+}
+
+.continue-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+.continue-card {
+  background: #ffffff;
+  border: 1px solid #dce5ef;
+  border-radius: 14px;
+  padding: 22px;
+}
+
+.continue-card h3 {
+  color: #17263c;
+  font-size: 17px;
+  margin-bottom: 18px;
+}
+
+.continue-progress-track {
+  height: 8px;
+  background: #eaf0f6;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.continue-progress-track span {
+  display: block;
+  height: 100%;
+  background: #23b9c8;
+  border-radius: 20px;
+  transition: width 0.3s ease;
+}
+
+.continue-card p {
+  color: #718096;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.continue-card a,
+.continue-empty a {
+  color: #1595a3;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.continue-card a:hover,
+.continue-empty a:hover {
+  text-decoration: underline;
+}
+
+.continue-empty {
+  background: #ffffff;
+  border: 1px dashed #dce5ef;
+  border-radius: 14px;
+  padding: 28px;
+  text-align: center;
+}
+
+.continue-empty p {
+  color: #718096;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 600px) {
+  .continue-grid {
+    grid-template-columns: 1fr;
+  }
+}

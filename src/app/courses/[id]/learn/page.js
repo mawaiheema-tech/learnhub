@@ -6,6 +6,10 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { Suspense } from "react";
 import Quiz from "./Quiz.js";
+import {
+  recordLearningActivity,
+  recordCourseVisit,
+} from "../../../utils/learningActivity.js";
 
 const lessons = [
   { id: 1, title: "Introduction to the Course", duration: "08:24", module: "Getting Started" },
@@ -48,6 +52,11 @@ const transcriptLines = [
 
 function LearnPageContent() {
   const { id: courseId } = useParams();
+  useEffect(() => {
+    if (courseId) {
+      recordCourseVisit(courseId);
+    }
+  }, [courseId]);
   const [currentLesson, setCurrentLesson] = useState(0);
   const [completedLessons, setCompletedLessons] = useState([]);
   const [completedLoaded, setCompletedLoaded] = useState(false);
@@ -134,8 +143,14 @@ useEffect(() => {
   );
 
   function toggleComplete() {
+    const isCompleted = completedLessons.includes(currentLesson);
+
+    if (!isCompleted) {
+      recordLearningActivity();
+    }
+
     setCompletedLessons((previous) =>
-      previous.includes(currentLesson)
+      isCompleted
         ? previous.filter((item) => item !== currentLesson)
         : [...previous, currentLesson]
     );

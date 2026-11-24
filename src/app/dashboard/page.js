@@ -1,9 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import LearningStreak from "./LearningStreak";
+import ContinueLearning from "./ContinueLearning";
 
 export default function Dashboard() {
   const [results, setResults] = useState([]);
+  
+  const [courseProgress, setCourseProgress] = useState([]);
+
+const courses = [
+  { id: "1", title: "Full Stack Web Development" },
+  { id: "2", title: "Python Programming Masterclass" },
+  { id: "3", title: "UI/UX Design Fundamentals" },
+  { id: "4", title: "Data Structures and Algorithms" },
+  { id: "5", title: "Cybersecurity Essentials" },
+  { id: "6", title: "Digital Marketing Strategy" },
+  { id: "7", title: "Advanced Java Programming" },
+  { id: "8", title: "Product Design and Innovation" },
+];
 
   useEffect(() => {
     const savedResults = JSON.parse(
@@ -12,6 +27,27 @@ export default function Dashboard() {
 
     setResults(savedResults);
   }, []);
+
+  useEffect(() => {
+  const progress = courses.map((course) => {
+    const completedLessons = JSON.parse(
+      localStorage.getItem(`learnhub-completed-${course.id}`) || "[]"
+    );
+
+    const totalLessons = 6;
+
+    return {
+      ...course,
+      completed: completedLessons.length,
+      total: totalLessons,
+      percentage: Math.round(
+        (completedLessons.length / totalLessons) * 100
+      ),
+    };
+  });
+
+  setCourseProgress(progress);
+}, []);
 
   const totalQuizzes = results.length;
 
@@ -52,6 +88,44 @@ export default function Dashboard() {
           <p>{averageScore}%</p>
         </div>
       </section>
+      
+      <section className="dashboard-progress">
+        <h2>My Course Progress</h2>
+        <p className="progress-description">
+          Keep learning and track how far you've come.
+        </p>
+
+        <div className="progress-grid">
+          {courseProgress.map((course) => (
+            <div className="progress-card" key={course.id}>
+              <div
+                className="progress-ring"
+                style={{
+                  background: `conic-gradient(#23b9c8 ${course.percentage}%, #eaf0f6 ${course.percentage}% 100%)`,
+              }}
+            >
+              <div className="progress-ring-inner">
+                <strong>{course.percentage}%</strong>
+              </div>
+        </div>
+
+        <h3>{course.title}</h3>
+
+        <p>
+          {course.completed} of {course.total} lessons completed
+        </p>
+
+        <a href={`/courses/${course.id}/learn`}>
+          {course.percentage === 100
+            ? "Review Course"
+            : "Continue Learning"}
+        </a>
+      </div>
+    ))}
+  </div>
+</section>
+<ContinueLearning />
+<LearningStreak />
 
       <section className="dashboard-results">
         <h2>Quiz History</h2>

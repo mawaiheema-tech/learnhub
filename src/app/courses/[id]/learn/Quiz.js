@@ -280,7 +280,7 @@ const quizQuestions = {
   ]
 
 };
-function CertificateCard({ eligible, courseTitle }) {
+function CertificateCard({ eligible, courseTitle ,courseId }) {
   return (
     <div className="certificate-status-card">
       <div className="certificate-icon">
@@ -298,7 +298,7 @@ function CertificateCard({ eligible, courseTitle }) {
 
         {eligible && (
           <a
-            href={`/certificate?course=${encodeURIComponent(courseTitle)}`}
+            href={`/certificate?course=${encodeURIComponent(courseTitle)}&courseId=${courseId}`}
             className="print-certificate"
           >
             Get Your Certificate
@@ -336,6 +336,7 @@ export default function Quiz({
   const [started, setStarted] = useState(false);
   const [finished, setFinished] = useState(false);
   const [resultSaved, setResultSaved] = useState(false);
+  const [savedBestPercentage, setSavedBestPercentage] = useState(0);
   const [timeLeft, setTimeLeft] = useState(200);
   const [orderedOptions, setOrderedOptions] = useState([]);
   const [draggedIndex, setDraggedIndex] = useState(null);
@@ -354,6 +355,24 @@ useEffect(() => {
     setOrderedOptions([]);
   }
 }, [currentQuestion, courseId]);
+
+useEffect(() => {
+  const existingResults = JSON.parse(
+    localStorage.getItem("learnhub-quiz-results") || "[]"
+  );
+
+  const courseResults = existingResults.filter(
+    (result) => String(result.courseId) === String(courseId)
+  );
+
+  if (courseResults.length > 0) {
+    const bestPercentage = Math.max(
+      ...courseResults.map((result) => result.percentage)
+    );
+
+    setSavedBestPercentage(bestPercentage);
+  }
+}, [courseId]);
 
 useEffect(() => {
   if (!started || finished) return;
@@ -512,7 +531,10 @@ const handleSelect = (option) => {
     setTimeLeft(200);
   };
 
-const percentage = Math.round((score / questions.length) * 100);
+const percentage = Math.max(
+  Math.round((score / questions.length) * 100),
+  savedBestPercentage
+);
 
 const courseCompleted = completedLessons.length === totalLessons;
 
@@ -525,6 +547,7 @@ if (finished) {
       <CertificateCard
         eligible={certificateEligible}
         courseTitle={quizTitles[courseId]}
+        courseId={courseId}
       />
       <h3>Your Score: {score} / {questions.length}</h3>
 
@@ -606,7 +629,7 @@ if (finished) {
 
       {certificateEligible && (
         <a
-          href={`/certificate?course=${encodeURIComponent(quizTitles[courseId])}`}
+          href={`/certificate?course=${encodeURIComponent(quizTitles[courseId])}&courseId=${courseId}`}
           className="print-certificate"
         >
           Get Your Certificate
@@ -625,6 +648,7 @@ if (!started) {
       <CertificateCard
       eligible={certificateEligible}
       courseTitle={quizTitles[courseId]}
+      courseId={courseId}
       />
       <h2>{quizTitles[courseId] || "Course Quiz"}</h2>
 

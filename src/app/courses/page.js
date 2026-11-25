@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useMemo, useState } from "react";
+import {  useEffect, useMemo, useState } from "react";
 
 const courses = [
   {
@@ -122,6 +122,8 @@ export default function CoursesPage() {
   const [category, setCategory] = useState("All");
   const [level, setLevel] = useState("All Levels");
   const [sort, setSort] = useState("featured");
+  const [currentPage, setCurrentPage] = useState(1);
+  const coursesPerPage = 6;
 
   const filteredCourses = useMemo(() => {
     let result = courses.filter((course) => {
@@ -151,6 +153,21 @@ export default function CoursesPage() {
     }
 
     return result;
+  }, [search, category, level, sort]);
+
+    const totalPages = Math.ceil(
+    filteredCourses.length / coursesPerPage
+  );
+
+  const startIndex = (currentPage - 1) * coursesPerPage;
+
+  const currentCourses = filteredCourses.slice(
+    startIndex,
+    startIndex + coursesPerPage
+  );
+  
+  useEffect(() => {
+    setCurrentPage(1);
   }, [search, category, level, sort]);
 
   function resetFilters() {
@@ -267,8 +284,9 @@ export default function CoursesPage() {
         </div>
 
         {filteredCourses.length > 0 ? (
+          <>
           <div className="course-grid">
-            {filteredCourses.map((course) => (
+            {currentCourses.map((course) => (
               <article className="course-card" key={course.id}>
                 <div
                   className="course-art"
@@ -310,8 +328,32 @@ export default function CoursesPage() {
               </article>
             ))}
           </div>
+                    {totalPages > 1 && (
+            <div className="pagination">
+              <button
+                onClick={() => setCurrentPage((page) => page - 1)}
+                disabled={currentPage === 1}
+              >
+                ← Previous
+              </button>
+
+              <span>
+                Page {currentPage} of {totalPages}
+              </span>
+
+              <button
+                onClick={() => setCurrentPage((page) => page + 1)}
+                disabled={currentPage === totalPages}
+              >
+                Next →
+              </button>
+            </div>
+          )}
+          </>
         ) : (
           <div className="empty-state">
+                
+          
             <span>⌕</span>
             <h3>No courses found</h3>
             <p>Try changing your search or filters.</p>

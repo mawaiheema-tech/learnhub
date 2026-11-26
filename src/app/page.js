@@ -37,6 +37,16 @@ export default function Home() {
           learn<span>hub.</span>
         </a>
 
+      <input
+        type="checkbox"
+        id="mobile-menu-toggle"
+        className="mobile-menu-toggle"
+      />
+
+      <label htmlFor="mobile-menu-toggle" className="menu-icon">
+      ☰
+      </label>
+
         <div className="nav-links">
           <a href="/courses">Explore</a>
           <a href="/dashboard">Dashboard</a>

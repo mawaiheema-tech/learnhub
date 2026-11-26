@@ -1,6 +1,7 @@
 import CourseActionButton from "./CourseActionButton";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+export const instant = false;
 
 const courses = [
   {

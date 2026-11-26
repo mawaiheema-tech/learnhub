@@ -2858,3 +2858,70 @@ button, input, select {
   color: #17263C;
   font-weight: 600;
 }
+
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: none !important;
+  }
+
+  .nav-button {
+    display: none !important;
+  }
+
+  .menu-icon {
+    display: block !important;
+  }
+}
+
+/* Mobile Hamburger Menu */
+
+.menu-icon {
+  display: none;
+  color: var(--navy);
+  font-size: 25px;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .navbar {
+    position: relative;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    padding: 22px 7%;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    gap: 22px;
+    z-index: 100;
+  }
+
+  #mobile-menu-toggle:checked ~ .nav-links {
+    display: flex;
+  }
+}
+
+/* Show Start Learning button on mobile */
+
+@media (max-width: 700px) {
+  .nav-button {
+    display: inline-flex !important;
+    padding: 10px 12px;
+    font-size: 12px;
+    white-space: nowrap;
+    margin-left: auto;
+  }
+
+  .navbar {
+    gap: 12px;
+  }
+}
